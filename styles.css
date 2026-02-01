@@ -1,0 +1,366 @@
+/* ============================================
+   anuta — portfolio
+   Full-screen scroll-snap slideshow
+   ============================================ */
+
+:root {
+  --color-bg: #e4e2dd;
+  --color-text: #2b2b2b;
+  --color-muted: #5c5c5c;
+  --color-white: #fff;
+
+  --font-display: 'Oswald', sans-serif;
+  --font-body: 'Work Sans', sans-serif;
+
+  --space: clamp(1.5rem, 4vw, 3rem);
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 17px;
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+  color: var(--color-text);
+  background: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+
+.path {
+  font-family: var(--font-body);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+/* Scroll container — one full screen per slide, snap on scroll */
+.scroll-container {
+  height: 100vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
+/* Each slide = full viewport, snap target */
+.slide {
+  height: 100vh;
+  min-height: 100vh;
+  width: 100%;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  position: relative;
+}
+
+/* Header — fixed over content */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(228, 226, 221, 0.9);
+  backdrop-filter: blur(8px);
+  padding: var(--space);
+  border-bottom: 1px solid rgba(43, 43, 43, 0.08);
+}
+
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.site-title {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  color: var(--color-text);
+}
+
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem 2rem;
+}
+
+.nav-links a {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: var(--color-text);
+  opacity: 0.85;
+  transition: opacity 0.2s var(--ease);
+}
+
+.nav-links a:hover {
+  opacity: 1;
+}
+
+/* Typography */
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--color-text);
+}
+
+h1 {
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-style: italic;
+  margin: 0 0 var(--space);
+}
+
+h3 {
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  font-style: italic;
+  margin: 0 0 0.25rem;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  opacity: 0.75;
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ========== Slide 1: Hero ========== */
+.slide.hero {
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+.hero-media {
+  position: absolute;
+  inset: 0;
+  background: var(--color-bg);
+}
+
+.hero-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(228, 226, 221, 0.6) 0%, transparent 50%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space);
+}
+
+.hero-name {
+  margin: 0;
+  color: var(--color-text);
+}
+
+.hero-tagline {
+  margin: 0.5rem 0 0;
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--color-muted);
+}
+
+.hero-caption {
+  font-size: 0.75rem;
+  font-style: italic;
+  color: var(--color-muted);
+  margin: 1.5rem 0 0;
+}
+
+/* ========== Slide 2: About ========== */
+.slide.about {
+  background: var(--color-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: calc(var(--space) * 2) var(--space);
+}
+
+.about-inner {
+  max-width: 560px;
+  text-align: center;
+}
+
+.about-inner p {
+  margin: 0 0 1rem;
+}
+
+.about-inner .btn {
+  margin-top: 1rem;
+}
+
+.btn {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  padding: 0.6rem 1.2rem;
+  background: var(--color-text);
+  color: var(--color-bg);
+  border: 1px solid var(--color-text);
+  transition: background 0.2s var(--ease), color 0.2s var(--ease);
+}
+
+.btn:hover {
+  background: transparent;
+  color: var(--color-text);
+}
+
+/* ========== Slides 3 & 4: Project (one image, full screen, no framing) ========== */
+.project-slide {
+  overflow: hidden;
+  padding: 0;
+}
+
+.project-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.project-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
+}
+
+.project-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  padding: var(--space);
+  background: linear-gradient(to top, rgba(43, 43, 43, 0.85) 0%, transparent);
+  color: var(--color-white);
+}
+
+.project-caption h3 {
+  color: var(--color-white);
+}
+
+.project-caption p {
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+/* ========== Slide 5: Contact ========== */
+.slide.contact {
+  background: var(--color-text);
+  color: var(--color-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: calc(var(--space) * 2) var(--space);
+}
+
+.contact-inner {
+  max-width: 560px;
+  text-align: center;
+}
+
+.contact h2 {
+  color: var(--color-bg);
+  margin-bottom: 0.5rem;
+}
+
+.contact-inner p {
+  margin: 0 0 0.5rem;
+}
+
+.contact a {
+  color: inherit;
+}
+
+.contact-details {
+  margin: 1rem 0;
+  line-height: 1.7;
+}
+
+.contact-location {
+  font-style: italic;
+  margin: 1rem 0 1.5rem;
+}
+
+.social-links {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.social-links a {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+  text-transform: lowercase;
+}
+
+.site-footer {
+  margin-top: auto;
+  padding: var(--space) 0 0;
+  text-align: center;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.site-footer .path {
+  color: var(--color-bg);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .nav-links a {
+    font-size: 0.85rem;
+  }
+}
