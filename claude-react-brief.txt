@@ -1,0 +1,52 @@
+You are assisting with a deliberate rebuild of this website as a system, not a one-off artefact.
+
+Context:
+- This is a performing artist portfolio site.
+- The site is being rebuilt for now as just a portfolio but this might evolve
+
+Rules:
+- Do NOT modify or generate files unless explicitly instructed.
+- Do NOT over-engineer.
+- Prioritise clarity, restraint, and editorial design.
+- Motion and interaction should feel intentional, not decorative.
+- The look should feel like a graphic designer bold, colours are stylised and kept minimal (different pages can have themes ie. cobalt blue for first page, coca cola red for heathers. but no fruit salad)
+- keep design with edge not round app style
+
+Vision:
+- The site will evolve over time.
+- Architecture and component clarity matter more than speed.
+- Design is typography-forward, high-contrast, editorial.
+
+Core Pages for now:
+- Home (video hero)
+- About
+- Projects
+- Recordings (audio-only with waveforms)
+- Contact
+
+Key Systems to Design:
+1. Header / Navigation
+   - Transparent, minimal.
+   - Collapses toward the top-right on scroll (inner pages).
+   - Expands/unravels on click.
+   - State-driven, not hacky.
+
+2. Social Icons
+   - Instagram, LinkedIn, Email.
+   - Fixed on the right side.
+   - Always visible.
+   - Automatically invert (white on dark, black on light, and all other colours this needs to be smooth).
+
+3. Recordings
+   - Audio-only playback.
+   - Visible waveform per recording.
+   - Reusable AudioWaveformPlayer component.
+
+Process:
+- First propose:
+  a) Component hierarchy
+  b) Routing strategy
+  c) State and interaction logic (high level)
+- Summarise your understanding before writing any code.
+
+Acknowledge when ready.

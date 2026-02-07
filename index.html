@@ -1,99 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>anuta — portfolio</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&family=Work+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <header class="site-header">
-    <div class="header-inner">
-      <a href="#home" class="site-title">anuta</a>
-      <nav class="nav-links" aria-label="Main">
-        <a href="#home">anuta/home</a>
-        <a href="#about">anuta/about</a>
-        <a href="#project-mms">anuta/projects</a>
-        <a href="#contact">anuta/contact</a>
-      </nav>
-    </div>
-  </header>
-
-  <main class="scroll-container">
-    <!-- Slide 1: Hero -->
-    <section id="home" class="slide hero">
-      <div class="hero-media">
-        <video class="hero-video" autoplay muted loop playsinline poster="assets/website/MMs/m1.jpg">
-          <source src="assets/hero.mp4" type="video/mp4">
-        </video>
-        <div class="hero-overlay"></div>
-      </div>
-      <div class="hero-content reveal">
-        <h1 class="hero-name">anuta</h1>
-        <p class="hero-tagline">a collection of projects in the creative domain</p>
-        <p class="hero-caption">"Mother May's" 2023</p>
-      </div>
-    </section>
-
-    <!-- Slide 2: About -->
-    <section id="about" class="slide about">
-      <div class="about-inner reveal">
-        <h2>about</h2>
-        <p>Experienced performing artist with over seven years in singing, dancing, acting, and public speaking.</p>
-        <p>Known for a compelling stage presence—commanding and self-assured, with an intelligent and humorous charm.</p>
-        <p>Performances are marked by vocal strength, emotional depth, and a unique ability to connect with diverse audiences.</p>
-        <a href="assets/resume.pdf" class="btn">read my resume</a>
-      </div>
-    </section>
-
-    <!-- Slide 3: Mother May's (one image, full screen) -->
-    <section id="project-mms" class="slide project-slide">
-      <div class="project-image">
-        <img src="assets/website/MMs/m1.jpg" alt="Mother May's">
-      </div>
-      <div class="project-caption">
-        <h3>"Mother May's" 2023</h3>
-        <p>Lead role, Mother May—gritty, soulful, commanding.</p>
-      </div>
-    </section>
-
-    <!-- Slide 4: Heathers (one image, full screen) -->
-    <section id="project-heathers" class="slide project-slide">
-      <div class="project-image">
-        <img src="assets/website/heathers/h1.jpg" alt="Heathers">
-      </div>
-      <div class="project-caption">
-        <h3>"Heathers" 2023</h3>
-        <p>Heather Chandler—confident, commanding and regal presence.</p>
-      </div>
-    </section>
-
-    <!-- Slide 5: Contact -->
-    <section id="contact" class="slide contact">
-      <div class="contact-inner reveal">
-        <h2>contact</h2>
-        <p>let's be social.</p>
-        <p class="contact-details">
-          <a href="mailto:akravtsova3@gmail.com">akravtsova3@gmail.com</a><br>
-          instagram: annakrav_<br>
-          linkedin: askravtsova
-        </p>
-        <p class="contact-location"><em>Based in Sydney, Australia</em></p>
-        <div class="social-links">
-          <a href="https://www.instagram.com/annakrav_/" aria-label="Instagram">instagram</a>
-          <a href="https://www.facebook.com/anna.kravtsova.94/" aria-label="Facebook">facebook</a>
-          <a href="https://www.youtube.com/playlist?list=PL90svKWuv1CXeYOTZam3SYW6eC3hjgVt9" aria-label="YouTube">youtube</a>
-        </div>
-      </div>
-      <footer class="site-footer">
-        <p><span class="path">anuta</span></p>
-      </footer>
-    </section>
-  </main>
-
-  <script src="script.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Anna Kravtsova</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Work+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>

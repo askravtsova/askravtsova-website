@@ -1,0 +1,19 @@
+.layout {
+  position: relative;
+  min-height: 100vh;
+}
+
+.main {
+  position: relative;
+  z-index: 1;
+  animation: pageIn 0.35s ease both;
+}
+
+@keyframes pageIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

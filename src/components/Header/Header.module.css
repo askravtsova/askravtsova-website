@@ -1,0 +1,128 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-sm) var(--space-md);
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-white);
+}
+
+/* ── Toggle (hamburger) ── */
+.toggle {
+  position: relative;
+  width: 28px;
+  height: 20px;
+  display: none;
+  z-index: 101;
+}
+
+.bar,
+.bar::before,
+.bar::after {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--color-white);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.bar {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.bar::before {
+  content: '';
+  top: -8px;
+}
+
+.bar::after {
+  content: '';
+  top: 8px;
+}
+
+.bar.open {
+  background: transparent;
+}
+
+.bar.open::before {
+  top: 0;
+  transform: rotate(45deg);
+}
+
+.bar.open::after {
+  top: 0;
+  transform: rotate(-45deg);
+}
+
+/* ── Nav ── */
+.nav {
+  display: flex;
+  gap: var(--space-md);
+}
+
+.link {
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-white);
+  opacity: 0.5;
+  transition: opacity 0.2s ease, color 0.2s ease;
+}
+
+.link:hover {
+  opacity: 1;
+  color: var(--color-cobalt);
+}
+
+.link.active {
+  opacity: 1;
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  .toggle {
+    display: block;
+  }
+
+  .nav {
+    position: fixed;
+    inset: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-lg);
+    background: var(--color-black);
+    transform: translateY(-100%);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .navOpen {
+    transform: translateY(0);
+  }
+
+  .nav .link {
+    font-size: 2rem;
+    opacity: 1;
+    color: var(--color-white);
+  }
+
+  .nav .link:hover {
+    color: var(--color-cobalt);
+  }
+}

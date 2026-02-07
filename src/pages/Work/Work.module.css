@@ -1,0 +1,214 @@
+.work {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* ── Column ── */
+.column {
+  position: relative;
+  flex: 1 1 0%;
+  min-width: 0;
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--color-black);
+  contain: style paint;
+  will-change: flex-grow;
+  transition: flex 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.column.expanded {
+  flex: 8 1 0%;
+  cursor: default;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+.column.collapsed {
+  flex: 0.25 1 0%;
+}
+
+/* ── Cover section — fills the column, stays as hero when expanded ── */
+.coverSection {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  flex-shrink: 0;
+}
+
+.column.expanded .coverSection {
+  height: 100vh;
+}
+
+.coverImg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.coverFallback {
+  position: absolute;
+  inset: 0;
+  background: var(--color-black);
+}
+
+.coverGrad {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(10, 10, 10, 0.8) 0%,
+    rgba(10, 10, 10, 0.1) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+/* ── Info overlay ── */
+.info {
+  position: relative;
+  z-index: 2;
+  padding: var(--space-lg) var(--space-md);
+  transition: opacity 0.3s ease;
+}
+
+.title {
+  font-size: clamp(1.25rem, 2.5vw, 2rem);
+  color: var(--color-white);
+  line-height: 1;
+}
+
+.column.expanded .title {
+  font-size: clamp(2rem, 5vw, 4rem);
+}
+
+.role {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 300;
+  color: var(--color-white);
+  opacity: 0.6;
+  margin-top: var(--space-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.year {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  color: var(--color-white);
+  opacity: 0.4;
+  letter-spacing: 0.1em;
+  display: block;
+  margin-top: var(--space-xs);
+}
+
+.description {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--color-white);
+  opacity: 0.7;
+  margin-top: var(--space-sm);
+  max-width: 450px;
+}
+
+/* ── Close button: sticky wrapper takes no space in flow ── */
+.closeWrap {
+  position: sticky;
+  top: 0;
+  height: 0;
+  overflow: visible;
+  z-index: 50;
+  text-align: right;
+}
+
+.close {
+  position: relative;
+  top: var(--space-sm);
+  margin-right: var(--space-md);
+  color: var(--color-white);
+  opacity: 0.7;
+  padding: 10px;
+  transition: opacity 0.2s ease;
+  background: rgba(10, 10, 10, 0.4);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 0;
+}
+
+.close:hover {
+  opacity: 1;
+}
+
+/* ── Gallery collage ── */
+.gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+  animation: galleryIn 0.4s ease both;
+}
+
+@keyframes galleryIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.galleryImage {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  aspect-ratio: 4 / 5;
+  content-visibility: auto;
+}
+
+/* Every 3rd image spans full width for editorial rhythm */
+.galleryImage:nth-child(5n + 1) {
+  grid-column: 1 / -1;
+  aspect-ratio: 16 / 9;
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  .work {
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .column {
+    min-height: 25vh;
+    flex: 1 1 auto;
+    transition: flex 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    contain: style paint;
+  }
+
+  .column.expanded {
+    flex: 1 1 100vh;
+  }
+
+  .column.collapsed {
+    flex: 0 0 60px;
+    min-height: 60px;
+  }
+
+  .gallery {
+    grid-template-columns: 1fr;
+  }
+
+  .galleryImage {
+    aspect-ratio: auto;
+  }
+
+  .galleryImage:nth-child(5n + 1) {
+    aspect-ratio: auto;
+  }
+}
