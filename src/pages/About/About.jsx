@@ -1,12 +1,45 @@
+import { useEffect, useRef } from 'react'
 import styles from './About.module.css'
 
 export default function About() {
+  const extendedRef = useRef(null)
+
+  useEffect(() => {
+    const el = extendedRef.current
+    if (!el) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add(styles.visible)
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      { threshold: 0.15 }
+    )
+
+    const items = el.querySelectorAll('[data-reveal]')
+    items.forEach((item) => observer.observe(item))
+
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <section className={styles.about}>
       {/* ── First fold: fits viewport ── */}
       <div className={styles.fold}>
         <div className={styles.grid}>
           <div className={styles.left}>
+            <div className={styles.photoWrap}>
+              <img
+                src="/assets/website/heathers/h1.jpg"
+                alt=""
+                className={styles.photo}
+              />
+              <div className={styles.photoOverlay} />
+            </div>
             <h1 className={styles.heading}>About</h1>
           </div>
           <div className={styles.right}>
@@ -33,12 +66,12 @@ export default function About() {
       </div>
 
       {/* ── Below the fold: scroll to discover ── */}
-      <div className={styles.extended}>
+      <div className={styles.extended} ref={extendedRef}>
         {/* Experience */}
         <div className={styles.section}>
-          <h2 className={styles.sectionTitle}>Experience</h2>
+          <h2 className={styles.sectionTitle} data-reveal>Experience</h2>
           <div className={styles.entries}>
-            <div className={styles.entry}>
+            <div className={styles.entry} data-reveal>
               <span className={styles.entryYear}>2023</span>
               <div>
                 <h3 className={styles.entryTitle}>Mother May's</h3>
@@ -52,7 +85,7 @@ export default function About() {
               </div>
             </div>
 
-            <div className={styles.entry}>
+            <div className={styles.entry} data-reveal>
               <span className={styles.entryYear}>2023</span>
               <div>
                 <h3 className={styles.entryTitle}>Heathers</h3>
@@ -65,7 +98,7 @@ export default function About() {
               </div>
             </div>
 
-            <div className={styles.entry}>
+            <div className={styles.entry} data-reveal>
               <span className={styles.entryYear}>2022</span>
               <div>
                 <h3 className={styles.entryTitle}>We Will Rock You</h3>
@@ -77,7 +110,7 @@ export default function About() {
               </div>
             </div>
 
-            <div className={styles.entry}>
+            <div className={styles.entry} data-reveal>
               <span className={styles.entryYear}>2020 — Present</span>
               <div>
                 <h3 className={styles.entryTitle}>Event Singer</h3>
@@ -88,7 +121,7 @@ export default function About() {
               </div>
             </div>
 
-            <div className={styles.entry}>
+            <div className={styles.entry} data-reveal>
               <span className={styles.entryYear}>2019 — Present</span>
               <div>
                 <h3 className={styles.entryTitle}>Lead Vocal Coach</h3>
@@ -104,25 +137,25 @@ export default function About() {
 
         {/* Skills & Training */}
         <div className={styles.section}>
-          <h2 className={styles.sectionTitle}>Skills &amp; Training</h2>
+          <h2 className={styles.sectionTitle} data-reveal>Skills &amp; Training</h2>
           <div className={styles.skills}>
-            <div className={styles.skill}>
+            <div className={styles.skill} data-reveal>
               <h3 className={styles.skillLabel}>Dance</h3>
               <p className={styles.skillDetail}>
                 Ballroom, Belly Dancing, Ballet, Contemporary
               </p>
             </div>
-            <div className={styles.skill}>
+            <div className={styles.skill} data-reveal>
               <h3 className={styles.skillLabel}>Languages</h3>
               <p className={styles.skillDetail}>
                 English, Ukrainian, Russian
               </p>
             </div>
-            <div className={styles.skill}>
+            <div className={styles.skill} data-reveal>
               <h3 className={styles.skillLabel}>Instruments</h3>
               <p className={styles.skillDetail}>Violin, Piano</p>
             </div>
-            <div className={styles.skill}>
+            <div className={styles.skill} data-reveal>
               <h3 className={styles.skillLabel}>Other</h3>
               <p className={styles.skillDetail}>
                 Competitive Synchronized Swimming, Public Speaking
@@ -132,7 +165,7 @@ export default function About() {
         </div>
 
         {/* Resume download */}
-        <div className={styles.resumeSection}>
+        <div className={styles.resumeSection} data-reveal>
           <a
             href="/assets/creative-resume.pdf"
             target="_blank"

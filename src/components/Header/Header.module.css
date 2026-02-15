@@ -10,6 +10,19 @@
   padding: var(--space-sm) var(--space-md);
 }
 
+/* ── Header inner: full bar by default, shrinks when collapsed ── */
+.headerInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  will-change: width;
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              background 0.3s ease,
+              border-radius 0.3s ease,
+              padding 0.3s ease;
+}
+
 .wordmark {
   font-family: var(--font-display);
   font-size: 1.125rem;
@@ -17,9 +30,74 @@
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--color-white);
+  transition: opacity 0.3s ease;
 }
 
-/* ── Toggle (hamburger) ── */
+/* ── Expand toggle — hidden by default, shown when collapsed ── */
+.expandToggle {
+  display: none;
+  position: relative;
+  width: 24px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.expandBar {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--color-white);
+  transition: transform 0.3s ease, top 0.3s ease;
+}
+
+.expandBar:first-child {
+  top: 3px;
+}
+
+.expandBar:last-child {
+  top: 11px;
+}
+
+/* X shape when revealed */
+.expandBar.expandOpen:first-child {
+  top: 7px;
+  transform: rotate(45deg);
+}
+
+.expandBar.expandOpen:last-child {
+  top: 7px;
+  transform: rotate(-45deg);
+}
+
+/* ── Desktop nav ── */
+.nav {
+  display: flex;
+  gap: var(--space-md);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.link {
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-white);
+  opacity: 0.5;
+  transition: opacity 0.2s ease, color 0.2s ease;
+}
+
+.link:hover {
+  opacity: 1;
+  color: var(--color-cobalt);
+}
+
+.link.active {
+  opacity: 1;
+}
+
+/* ── Mobile hamburger toggle ── */
 .toggle {
   position: relative;
   width: 28px;
@@ -68,39 +146,116 @@
   transform: rotate(-45deg);
 }
 
-/* ── Nav ── */
-.nav {
-  display: flex;
-  gap: var(--space-md);
+/* ── Mobile nav overlay — hidden on desktop ── */
+.mobileNav {
+  display: none;
 }
 
-.link {
+.mobileLink {
   font-family: var(--font-display);
-  font-size: 0.875rem;
+  font-size: 2rem;
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--color-white);
-  opacity: 0.5;
-  transition: opacity 0.2s ease, color 0.2s ease;
+  transition: color 0.2s ease;
 }
 
-.link:hover {
-  opacity: 1;
+.mobileLink:hover {
   color: var(--color-cobalt);
 }
 
-.link.active {
+.mobileLink.active {
   opacity: 1;
 }
 
-/* ── Mobile ── */
+/* ══════════════════════════════════════════════
+   COLLAPSED STATE (desktop only, scrolled >80px)
+   ══════════════════════════════════════════════ */
+@media (min-width: 769px) {
+  .collapsed .headerInner {
+    position: absolute;
+    top: var(--space-sm);
+    right: var(--space-md);
+    left: auto;
+    width: 48px;
+    height: 48px;
+    background: rgba(10, 10, 10, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 6px;
+    padding: 12px;
+    overflow: hidden;
+  }
+
+  .collapsed .expandToggle {
+    display: block;
+  }
+
+  .collapsed .wordmark {
+    opacity: 0;
+    position: absolute;
+    pointer-events: none;
+  }
+
+  .collapsed .nav {
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    visibility: hidden;
+  }
+
+  /* ── REVEALED STATE (collapsed + clicked) ── */
+  .collapsed.revealed .headerInner {
+    width: 220px;
+    height: auto;
+    padding: 16px 20px;
+  }
+
+  .collapsed.revealed .nav {
+    opacity: 1;
+    pointer-events: auto;
+    position: relative;
+    visibility: visible;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    transform: translateY(0);
+  }
+
+  .collapsed.revealed .link {
+    opacity: 0.7;
+  }
+
+  .collapsed.revealed .link:hover {
+    opacity: 1;
+    color: var(--color-cobalt);
+  }
+
+  .collapsed.revealed .link.active {
+    opacity: 1;
+  }
+}
+
+/* ══════════════════════════
+   MOBILE — no collapse, hamburger overlay
+   ══════════════════════════ */
 @media (max-width: 768px) {
+  /* Hide desktop nav on mobile */
+  .nav {
+    display: none;
+  }
+
+  .expandToggle {
+    display: none !important;
+  }
+
   .toggle {
     display: block;
   }
 
-  .nav {
+  .mobileNav {
+    display: flex;
     position: fixed;
     inset: 0;
     flex-direction: column;
@@ -110,19 +265,37 @@
     background: var(--color-black);
     transform: translateY(-100%);
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 100;
   }
 
-  .navOpen {
+  .mobileNavOpen {
     transform: translateY(0);
   }
+}
 
-  .nav .link {
-    font-size: 2rem;
-    opacity: 1;
-    color: var(--color-white);
-  }
+/* ── Theme-aware colors ── */
+:global([data-theme="light"]) .wordmark {
+  color: var(--color-black);
+}
 
-  .nav .link:hover {
-    color: var(--color-cobalt);
-  }
+:global([data-theme="light"]) .link {
+  color: var(--color-black);
+}
+
+:global([data-theme="light"]) .link:hover {
+  color: var(--color-cobalt);
+}
+
+:global([data-theme="light"]) .bar,
+:global([data-theme="light"]) .bar::before,
+:global([data-theme="light"]) .bar::after {
+  background: var(--color-black);
+}
+
+:global([data-theme="light"]) .expandBar {
+  background: var(--color-black);
+}
+
+:global([data-theme="light"]) .collapsed .headerInner {
+  background: rgba(255, 255, 255, 0.9);
 }
